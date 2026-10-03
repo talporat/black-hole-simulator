@@ -1,0 +1,3 @@
+chatterbox-tts
+openai-whisper
+setuptools<81

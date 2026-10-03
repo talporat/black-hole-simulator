@@ -1,0 +1,248 @@
+1
+00:00:00,000 --> 00:00:07,310
+Welcome back! Last time, we worked out why light bends near a black hole, and boiled it all down to these two rules.
+
+2
+00:00:07,800 --> 00:00:17,667
+Today, we turn them into code. By the end of this video, you'll have about two hundred lines of C plus plus that bend light the way Einstein says it should, and you'll have drawn it with OpenGL.
+
+3
+00:00:19,500 --> 00:00:28,385
+Alright, enough theory. Let's turn those two rules into a real program. Stage one is simple on purpose: a flat picture of light rays flying past a black hole.
+
+4
+00:00:28,867 --> 00:00:37,795
+The program has two halves. Half one is physics. For every ray, the processor runs our two rules, step after step, and writes down where the ray went.
+
+5
+00:00:38,267 --> 00:00:44,731
+Half two is drawing. We hand those points to the graphics card and say: connect the dots. And for that, we use OpenGL.
+
+6
+00:00:45,200 --> 00:00:58,338
+So what is OpenGL? It's a standard way for your program to talk to the graphics card. And honestly? All it can draw is points, lines and triangles. That's it. Every game you've ever played is built out of those.
+
+7
+00:00:58,833 --> 00:01:04,184
+We're writing this in C plus plus. One file, about two hundred lines. Physics first.
+
+8
+00:01:05,767 --> 00:01:19,499
+We start tiny: a two-dimensional vector. An x and a y. We can add them, subtract them, scale them, take a dot product, and get the length. That's all the vector maths we need.
+
+9
+00:01:20,467 --> 00:01:30,079
+And this is the heart of the whole thing: a function called derivatives. You give it where the ray is, x, and its momentum, p. It tells you how fast each one is changing.
+
+10
+00:01:30,567 --> 00:01:33,882
+r is the distance from the hole. Easy.
+
+11
+00:01:34,367 --> 00:01:40,617
+L is our arrow of length one, pointing away from the hole. That's just the position divided by its own length.
+
+12
+00:01:41,100 --> 00:01:44,832
+f is how strong gravity is here: two M over r.
+
+13
+00:01:45,300 --> 00:01:50,531
+Then the two gradients that rule two needs. The first one is our inverse-square pull.
+
+14
+00:01:51,000 --> 00:01:54,736
+A is the helper: L dot p, minus p t.
+
+15
+00:01:55,234 --> 00:02:01,183
+And now, the two rules, exactly like they were on the board. Rule one: how the position changes.
+
+16
+00:02:01,667 --> 00:02:09,573
+Rule two: how the momentum changes. Seriously, compare them term by term. The code is the equation.
+
+17
+00:02:11,167 --> 00:02:21,245
+We're missing one thing though: p t. Remember, for light, H has to be zero. Write that out and, surprise, it's a quadratic equation, with p t as the unknown.
+
+18
+00:02:21,734 --> 00:02:26,576
+And you already know how to solve a quadratic. It's the formula from school.
+
+19
+00:02:27,067 --> 00:02:33,529
+So that's this function. It works out a, b and c, and returns the root. And now our ray really is a ray of light.
+
+20
+00:02:35,100 --> 00:02:47,009
+Okay. We know how fast x and p are changing, so let's take a step. The obvious way is Euler's method. It's what you'd do in a spreadsheet: new value equals old value, plus the rate of change, times a step size h.
+
+21
+00:02:47,500 --> 00:02:57,785
+But there's a catch. The rate of change keeps changing during the step. So Euler slowly drifts off the true path. And near a black hole, that error grows fast.
+
+22
+00:02:58,267 --> 00:03:06,687
+So we use something much better: Runge-Kutta four. It measures the rate of change four times: once at the start, twice in the middle, and once at the end.
+
+23
+00:03:07,167 --> 00:03:10,221
+Then it averages the four, with the middle ones counting double.
+
+24
+00:03:10,700 --> 00:03:15,584
+Same step size. Same number of steps. And look at that: right on the true path.
+
+25
+00:03:17,167 --> 00:03:27,290
+Last one: trace ray, which puts everything together. It starts at a point, heading in some direction. The direction is the momentum, and photon energy gives us p t.
+
+26
+00:03:27,767 --> 00:03:32,019
+Then it loops. And every time around, it asks: how far is this ray from the hole?
+
+27
+00:03:32,500 --> 00:03:37,723
+Closer than two M? It's crossed the horizon. Mark it as captured. Done.
+
+28
+00:03:38,200 --> 00:03:41,255
+Really far away? It's gone. Done.
+
+29
+00:03:41,734 --> 00:03:51,641
+Otherwise, take one Runge-Kutta step and save the new point. And check out the step size: it's proportional to r. Small, careful steps near the hole, and big strides far away.
+
+30
+00:03:52,134 --> 00:03:55,830
+And what comes back is a list of points: the path of one ray of light.
+
+31
+00:03:57,400 --> 00:04:06,795
+Now the fun half: drawing. Step one, we need a window. OpenGL can't open one on its own, so we use a small library called G L F W.
+
+32
+00:04:07,267 --> 00:04:12,915
+These lines ask for OpenGL version four point one, in its modern flavour, called the core profile.
+
+33
+00:04:13,400 --> 00:04:21,007
+Create window opens the window. And make context current says: from now on, OpenGL commands draw into this one.
+
+34
+00:04:22,000 --> 00:04:33,647
+Step two. The graphics card has no idea what to do with our points, until we hand it two small programs called shaders. They're written in a language that looks a lot like C, called G L S L.
+
+35
+00:04:34,133 --> 00:04:41,104
+The vertex shader runs once for every point, and answers one question: where on the screen does this point go?
+
+36
+00:04:41,600 --> 00:04:47,972
+The fragment shader runs once for every pixel a line covers, and answers: what colour is it?
+
+37
+00:04:48,967 --> 00:04:55,934
+Here's our vertex shader. Its input, a pos, is one point of a ray, measured in units of M.
+
+38
+00:04:56,433 --> 00:05:05,826
+Now, OpenGL's screen always goes from minus one to plus one, across and up. So the shader just divides by the size of the area we want to see. That's literally the whole job.
+
+39
+00:05:06,300 --> 00:05:13,614
+u view size is what's called a uniform: a value our C plus plus program sets, and it's the same for every point.
+
+40
+00:05:14,100 --> 00:05:21,070
+The fragment shader is even shorter. Every pixel on the line gets the colour stored in another uniform, u color.
+
+41
+00:05:22,667 --> 00:05:30,830
+Fun fact: shaders get compiled while your program is running. Compile shader hands the source text to OpenGL, and compiles it.
+
+42
+00:05:31,300 --> 00:05:42,020
+Then it checks if that worked. If we made a typo, it prints the compiler's message. Trust me, you want this. Without it, a broken shader just gives you a black window, and zero clues.
+
+43
+00:05:42,500 --> 00:05:47,811
+Make program compiles both shaders and links them into one program we can draw with.
+
+44
+00:05:48,800 --> 00:05:55,263
+Step three: getting our points onto the graphics card. A vertex buffer is a chunk of the card's memory that holds them.
+
+45
+00:05:55,733 --> 00:06:07,340
+But it's just a row of numbers. So we also need a vertex array, which remembers how to read them. Here we're saying: attribute zero, our a pos, is two floats per point.
+
+46
+00:06:08,933 --> 00:06:16,373
+With all that in place, drawing one ray is just three calls. Buffer data copies the ray's points into the vertex buffer.
+
+47
+00:06:16,867 --> 00:06:20,347
+Uniform three f sets the colour for the fragment shader.
+
+48
+00:06:20,833 --> 00:06:29,124
+And draw arrays says: go, draw them. The mode says how to connect the points. Line strip joins each point to the next one. And that's a ray.
+
+49
+00:06:29,600 --> 00:06:36,572
+Triangle fan makes a filled shape out of triangles that all share one corner. That's how we draw the black disc of the hole.
+
+50
+00:06:38,167 --> 00:06:43,563
+Last piece: the main loop. It runs once per frame, until you close the window.
+
+51
+00:06:44,033 --> 00:06:50,233
+Clear the screen to a dark colour. Switch on our shader program, and tell it how much of the world to show.
+
+52
+00:06:50,733 --> 00:06:55,794
+Then draw every ray we traced: red if it got captured, blue if it escaped.
+
+53
+00:06:56,267 --> 00:07:03,152
+Draw the hole on top. Swap buffers puts the finished frame on screen. And poll events lets the window react to your mouse and keyboard.
+
+54
+00:07:05,033 --> 00:07:10,981
+And here it is, running! Every curve you're looking at is one ray of light, traced with our two rules.
+
+55
+00:07:11,500 --> 00:07:17,025
+Rays far from the hole bend just a little. The red ones got too close, and crossed the horizon.
+
+56
+00:07:17,533 --> 00:07:21,869
+The gold ray follows the mouse. Now watch what happens as it moves toward the centre.
+
+57
+00:07:22,400 --> 00:07:30,820
+Whoa. Right at the edge, it wraps all the way around the hole before it escapes. It's skimming the photon sphere at three M. That's the grey circle.
+
+58
+00:07:32,633 --> 00:07:41,389
+Let's zoom in on that boundary. There's one exact aim where a ray doesn't fall in, and doesn't fly past either. It just circles the photon sphere.
+
+59
+00:07:41,866 --> 00:07:48,453
+That ray starts out aimed off-centre by three times the square root of three, times M. About five point two M.
+
+60
+00:07:48,933 --> 00:07:58,540
+Anything aimed closer than that is gone. So from far away, the hole blacks out a disc more than two and a half times wider than its horizon. That disc is the black hole's shadow.
+
+61
+00:07:59,633 --> 00:08:09,371
+So that's the promise kept: a program that bends light correctly, in about two hundred lines. But let's be honest, it's a diagram. It's not a picture yet.
+
+62
+00:08:09,866 --> 00:08:20,195
+In the next episode, we drop a camera into this world, and trace one ray for every pixel, on the graphics card. That's where it starts to look real. See you there.
+

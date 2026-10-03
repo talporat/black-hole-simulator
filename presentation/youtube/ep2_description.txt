@@ -1,0 +1,43 @@
+Bending Light in 200 Lines of C++ and OpenGL | Building a Black Hole Simulator, Part 2
+
+------------------------------------------------------------
+
+We turn the two equations from part 1 into a real program: light rays traced step by step around a black hole, and drawn with OpenGL from scratch. Every line of code is shown next to the maths it comes from.
+
+In this video:
+- Writing the equations of motion for light in C++
+- Solving H = 0 with the quadratic formula
+- Why Runge-Kutta 4 beats Euler's method
+- OpenGL from zero: a window, two shaders, vertex buffers and draw calls
+- Finding the black hole's shadow at 5.2 M
+
+The code for this part: https://github.com/talporat/black-hole-simulator (folder stages/01_rays_2d).
+
+Chapters
+0:00 Recap
+0:19 The plan: physics plus OpenGL
+1:05 Code: vectors and the two rules
+2:11 Solving H = 0 with the quadratic formula
+2:35 Euler vs Runge-Kutta 4
+3:17 Following a ray
+3:57 OpenGL: opening a window
+4:22 Vertex and fragment shaders
+5:22 Compiling shaders
+5:48 Vertex buffers
+6:08 Drawing lines and shapes
+6:38 The main loop
+7:05 The program running
+7:32 The black hole's shadow
+
+The series (Building a Black Hole Simulator):
+- Part 1: Why Light Bends Around a Black Hole
+- Part 3: Ray Tracing a Black Hole on the GPU
+- Part 4: The Glowing Disk: Doppler, Redshift and Tone Mapping
+
+Credits
+- Narration: AI-generated voice (Chatterbox, open source).
+- Music: synthesised in code for this series.
+- Animations: Manim Community Edition. Black hole renders: the C++/OpenGL simulator built in this series.
+- Portraits (public domain, Wikimedia Commons): Isaac Newton (Godfrey Kneller, 1689), Albert Einstein (Ferdinand Schmutzer, 1921), Karl Schwarzschild, William Rowan Hamilton, Leonhard Euler (Jakob Emanuel Handmann, 1753), Christian Doppler.
+
+Tags: black hole, ray tracing, general relativity, OpenGL, C++, GLSL, shaders, physics simulation, gravitational lensing, Schwarzschild, Einstein, programming tutorial, computer graphics, physics explained

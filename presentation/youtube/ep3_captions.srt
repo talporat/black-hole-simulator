@@ -1,0 +1,216 @@
+1
+00:00:00,800 --> 00:00:08,497
+Welcome back! Last time, we worked out the two rules light follows near a black hole, and wrote a program that traces rays with them.
+
+2
+00:00:09,000 --> 00:00:12,145
+But all we got was a diagram. Lines on a flat page.
+
+3
+00:00:12,667 --> 00:00:22,189
+Today we fix that. By the end of this video, you'll be flying a camera around a black hole, in real time, and seeing what you'd actually see if you were there.
+
+4
+00:00:22,700 --> 00:00:32,134
+To pull that off, we need three new things. A camera. A ray of light for every single pixel. And a way to run our physics on the graphics card.
+
+5
+00:00:33,966 --> 00:00:41,574
+So how does a normal ray tracer make a picture? There's a camera, and in front of it, a grid of pixels. That's your screen.
+
+6
+00:00:42,066 --> 00:00:47,630
+For every pixel, we shoot a ray from the camera, through that pixel, and ask: what does it hit?
+
+7
+00:00:48,099 --> 00:00:54,514
+Yes, that's backwards from how real light travels. But it's clever: we only bother with the rays that actually reach the camera.
+
+8
+00:00:54,999 --> 00:01:04,695
+In normal space, light goes in straight lines. So a ray is just a start point plus a direction, and hitting a sphere is one quadratic equation. Easy.
+
+9
+00:01:05,166 --> 00:01:08,012
+Now swap the sphere for a black hole.
+
+10
+00:01:08,499 --> 00:01:12,664
+And the rays bend. Some swing around the back. Some never come out.
+
+11
+00:01:13,133 --> 00:01:20,186
+There's no neat formula for these paths. To find out where a ray ends up, we have to walk along it, one small step at a time.
+
+12
+00:01:20,666 --> 00:01:25,551
+The good news? We already know how to take a step. It's the two rules from last time.
+
+13
+00:01:27,133 --> 00:01:32,572
+But one ray per pixel adds up fast. Even a small window has about a million pixels.
+
+14
+00:01:33,066 --> 00:01:35,615
+Each ray needs a hundred steps or more.
+
+15
+00:01:36,100 --> 00:01:40,683
+And for smooth motion, we want sixty pictures every second.
+
+16
+00:01:41,166 --> 00:01:45,495
+Do the maths. That's billions of Runge-Kutta steps, every single second.
+
+17
+00:01:46,966 --> 00:01:50,995
+A processor grinds through them a few at a time. Way too slow.
+
+18
+00:01:51,466 --> 00:02:00,693
+A graphics card is a different beast. It has thousands of small cores, and it runs the same little program on every pixel, all at once.
+
+19
+00:02:01,166 --> 00:02:09,583
+And you've already met that little program. It's the fragment shader! Last time, all it did was return a colour. This time, it does the physics.
+
+20
+00:02:11,166 --> 00:02:20,690
+One catch: a fragment shader only runs where something is being drawn. So we draw one shape that covers the entire screen: a single, oversized triangle.
+
+21
+00:02:21,166 --> 00:02:28,265
+Its vertex shader doesn't even need a buffer of points. It makes up the three corners from the vertex number: zero, one, and two.
+
+22
+00:02:28,733 --> 00:02:36,517
+They land outside the screen, which only goes from minus one to one. OpenGL trims off the extra, and what's left is exactly the screen. Neat trick, right?
+
+23
+00:02:37,599 --> 00:02:44,360
+On the C plus plus side, that's an empty vertex array, and one draw call with three vertices.
+
+24
+00:02:44,833 --> 00:02:52,142
+From now on, the fragment shader runs once for every pixel in the window. Whatever colour it returns, that's what you see.
+
+25
+00:02:53,733 --> 00:02:59,258
+Now the physics has to move out of C plus plus and into the shader. Here's our derivatives function from last time.
+
+26
+00:02:59,733 --> 00:03:01,428
+And here's the shader version.
+
+27
+00:03:01,900 --> 00:03:09,680
+Look how little changes! Vec two becomes vec three. And the outputs are marked with the word out, instead of being references.
+
+28
+00:03:10,166 --> 00:03:12,715
+The body? Identical. Line for line.
+
+29
+00:03:13,200 --> 00:03:21,741
+And that's not luck. Our two rules never said how many dimensions there are. They're written with vectors and dot products, so three dimensions comes for free.
+
+30
+00:03:22,233 --> 00:03:27,587
+Photon energy and the Runge-Kutta step move over in exactly the same way.
+
+31
+00:03:29,166 --> 00:03:36,603
+Next up: the camera. It circles the hole, and we describe where it is with two angles and a distance. Those are what your mouse changes.
+
+32
+00:03:37,099 --> 00:03:42,658
+Every frame, the program turns those into a position, with sines and cosines.
+
+33
+00:03:43,133 --> 00:03:47,345
+Then it needs three directions. Forward points from the camera to the hole.
+
+34
+00:03:47,833 --> 00:03:57,231
+Right has to be perpendicular to forward, and to the vertical. And a cross product gives you exactly that: a vector at right angles to two others.
+
+35
+00:03:57,699 --> 00:04:00,204
+And up is perpendicular to both of those.
+
+36
+00:04:00,699 --> 00:04:08,477
+These get sent to the shader as uniforms. Remember: a uniform is a value the program sends to the shader, the same for every pixel.
+
+37
+00:04:08,966 --> 00:04:15,940
+So when you drag the mouse, the angles change, the uniforms change, and the next frame gets traced from the new spot.
+
+38
+00:04:17,533 --> 00:04:24,974
+Now we're inside the fragment shader. First, each pixel works out where it sits on the screen, from minus one to plus one.
+
+39
+00:04:25,466 --> 00:04:32,010
+Its ray starts at the camera. And its direction is forward, plus a bit of right and a bit of up, depending on where the pixel is.
+
+40
+00:04:32,499 --> 00:04:40,579
+That direction is the ray's momentum, p. And photon energy gives us p t, exactly like in stage one.
+
+41
+00:04:41,066 --> 00:04:51,226
+One honest confession: this treats space as flat right where the camera sits. That's a fine approximation, as long as the camera keeps its distance from the hole.
+
+42
+00:04:52,799 --> 00:04:59,090
+Then comes the same loop as trace ray from last time, with one difference. Instead of saving a path, it picks a colour.
+
+43
+00:04:59,566 --> 00:05:05,305
+Inside the horizon? No light comes out of there. This pixel is black. Done.
+
+44
+00:05:05,799 --> 00:05:09,492
+Far away? The ray escaped. Stop stepping.
+
+45
+00:05:09,966 --> 00:05:13,531
+Otherwise, take one Runge-Kutta step, and go around again.
+
+46
+00:05:14,566 --> 00:05:23,361
+After the loop, we ask: which way is the escaped ray heading now? Rule one gives us its velocity. Then we look up that direction in the sky.
+
+47
+00:05:24,932 --> 00:05:31,097
+The sky function turns a direction into a colour. It can paint stars.
+
+48
+00:05:31,566 --> 00:05:41,601
+Or it can paint a grid, like the lines of latitude and longitude on a globe, with the top half blue and the bottom half red. That makes the bending so much easier to see.
+
+49
+00:05:43,899 --> 00:05:50,190
+And here it is! That black disc in the middle is the shadow. Every ray aimed in there fell into the hole.
+
+50
+00:05:50,699 --> 00:05:57,375
+Its edge is exactly the critical aim we found last time: five point two M. Way bigger than the hole itself.
+
+51
+00:05:57,899 --> 00:06:08,952
+Around it, the grid gets stretched and folded. And just outside the shadow, you can see the entire sky a second time, squeezed into a thin ring. That light went all the way around the hole.
+
+52
+00:06:09,466 --> 00:06:17,412
+And check out the colours. The top of the sky is blue, right? But there's blue below the hole. Those rays got bent right over the top.
+
+53
+00:06:17,932 --> 00:06:25,452
+Swap in the stars, and it looks like this. A million rays, a few hundred steps each, re-traced every single frame.
+
+54
+00:06:25,966 --> 00:06:35,617
+Still, a black hole on its own looks a bit empty. Next time, we give it something to light it up: a disk of hot gas, orbiting at half the speed of light. Don't miss that one.
+

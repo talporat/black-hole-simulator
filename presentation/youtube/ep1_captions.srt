@@ -1,0 +1,216 @@
+1
+00:00:00,000 --> 00:00:08,840
+This is a black hole. And no, it's not from a movie, and it's not from NASA. It's a program, running live on my laptop.
+
+2
+00:00:09,340 --> 00:00:17,498
+And here's my promise: by the end of this series, you'll have built this yourself. From an empty file. And you'll understand every single line.
+
+3
+00:00:17,998 --> 00:00:28,919
+Because here's what blows my mind. Nobody drew that glowing halo. Nobody painted that shadow. There's no 3D model in here. Every pixel just asks one question: if light landed here, where did it come from?
+
+4
+00:00:29,419 --> 00:00:33,320
+So let's build it. The physics and the code, side by side.
+
+5
+00:00:33,852 --> 00:00:41,034
+We'll do it in four episodes. And from episode two on, every single one ends with a program you can actually run.
+
+6
+00:00:41,552 --> 00:00:51,035
+Episode one, that's today, is the physics. Stick with me to the end of this video, and you'll know exactly why light bends, and the two equations our whole program runs on.
+
+7
+00:00:51,552 --> 00:00:58,097
+Episode two: we turn those equations into real code, and draw light rays bending around a black hole.
+
+8
+00:00:58,619 --> 00:01:06,440
+Episode three: a full three-dimensional ray tracer, on your graphics card. And episode four: the glowing disk of gas, spinning.
+
+9
+00:01:06,952 --> 00:01:15,115
+Now, quick heads up: some of this physics is university level. Don't worry about that. Every piece has a high-school version, and that's where we start.
+
+10
+00:01:19,300 --> 00:01:28,187
+Let's kick off with something you already know: Newton's law of gravity. The heavier something is, the harder gravity pulls on it.
+
+11
+00:01:28,687 --> 00:01:35,615
+But wait. Light has no mass. Literally zero. So according to Newton, gravity shouldn't do anything to it.
+
+12
+00:01:36,115 --> 00:01:44,274
+Except it does! In 1919, astronomers photographed stars right next to the Sun during an eclipse. And the starlight was bent.
+
+13
+00:01:45,748 --> 00:01:53,189
+So what's going on? Einstein's answer sounds crazy: gravity isn't a force at all. Mass bends space and time themselves.
+
+14
+00:01:53,689 --> 00:02:01,678
+Light still travels as straight as it possibly can. It's the space that's bent. So to us, the path looks curved.
+
+15
+00:02:02,178 --> 00:02:09,149
+It's like a plane flying dead straight over the round Earth. Draw that route on a flat map, and you get an arc. Same thing.
+
+16
+00:02:09,645 --> 00:02:16,017
+Okay, but we want to calculate stuff. So we need a formula for that bending. And we'll start with an old friend: Pythagoras.
+
+17
+00:02:16,517 --> 00:02:27,536
+Take a tiny step across, and call it d x. And a tiny step up, d y. That little d just means: a tiny change in. So the tiny distance you've covered is d s.
+
+18
+00:02:28,036 --> 00:02:34,281
+Add a third dimension, easy. Now add time. And this is the weird part: time goes in with a minus sign.
+
+19
+00:02:34,781 --> 00:02:43,710
+A formula like this has a name: a metric. It's the rulebook for measuring distances in space and time together. This one describes flat, empty space.
+
+20
+00:02:44,210 --> 00:02:57,690
+Near a mass, the rulebook changes. A physicist called Karl Schwarzschild figured out how, in 1915. Same idea, just written with r, the distance from the centre, and capital omega, which is the direction you're in, around the hole.
+
+21
+00:02:58,190 --> 00:03:14,136
+But look closely: two terms picked up an extra factor. One minus two M over r. Far away, r is huge, the factor is basically one, and space is flat again. Up close? Clocks tick differently, and rulers measure differently.
+
+22
+00:03:14,636 --> 00:03:32,676
+Quick word on units. M here is the mass turned into a length: G times M, over c squared. For the Sun, that's about one and a half kilometres. For the Earth? About four millimetres. Tiny.
+
+23
+00:03:33,169 --> 00:03:36,772
+Now, there are three distances I want you to remember.
+
+24
+00:03:37,272 --> 00:03:46,625
+Number one: r equals two M. That's the event horizon. Cross it, and nothing gets back out. Not even light.
+
+25
+00:03:47,125 --> 00:03:56,523
+Here's a nice way to remember it. Take the escape velocity formula from school, and ask: where does it reach the speed of light? You land on exactly this radius.
+
+26
+00:03:57,023 --> 00:04:05,052
+Number two: three M. Gravity is so strong here that light itself can go around in circles. That's the photon sphere.
+
+27
+00:04:05,552 --> 00:04:13,965
+And number three: six M. That's the closest anything can orbit safely. Our disk of gas is going to start right there.
+
+28
+00:04:15,300 --> 00:04:23,720
+So how does light actually move through bent space? The path has a fancy name: a geodesic. All it means is the straightest path available.
+
+29
+00:04:25,200 --> 00:04:32,299
+To compute one, think about how you'd simulate a ball flying through the air. You only track two things: where it is, and how fast it's going.
+
+30
+00:04:32,799 --> 00:04:37,817
+And you only need two rules. Rule one: the velocity changes the position.
+
+31
+00:04:38,317 --> 00:04:46,864
+Rule two: the force changes the velocity. Run those two rules again and again, in tiny steps, and you get the ball's whole path.
+
+32
+00:04:47,350 --> 00:04:56,366
+For light, it's exactly the same game, with a position x and a momentum p. The momentum tells you which way the light is going, and how much energy it's carrying.
+
+33
+00:04:56,866 --> 00:05:03,966
+And both rules come out of one single function, called H. It's built from the metric. Think of it as the photon's energy.
+
+34
+00:05:04,466 --> 00:05:09,734
+Rule one: the position changes with the slope of H, as you vary the momentum.
+
+35
+00:05:10,234 --> 00:05:15,464
+Rule two: the momentum changes with minus the slope of H, as you vary the position.
+
+36
+00:05:15,964 --> 00:05:25,615
+These are Hamilton's equations. That's university physics, and no, we're not deriving them today. Just look at the shape: two rules, applied over and over. Exactly like the ball.
+
+37
+00:05:26,098 --> 00:05:33,196
+One small thing. Light doesn't carry a clock. So instead of time, we use lambda. Think of it as a distance marker along the ray.
+
+38
+00:05:34,667 --> 00:05:43,808
+Now, before we write any code, we've got a problem. Look at this factor in Schwarzschild's formula. At r equals two M, it becomes one divided by zero. Uh oh.
+
+39
+00:05:44,308 --> 00:05:53,194
+Here's the thing though: nothing is actually broken in space there. It's the coordinates that break. Like longitude at the North Pole. It just stops meaning anything.
+
+40
+00:05:53,675 --> 00:05:59,959
+But a computer following a ray doesn't care about that. It would crash straight into the division by zero.
+
+41
+00:06:01,459 --> 00:06:10,131
+So here's the fix: describe the same space with better coordinates. They're called Kerr-Schild coordinates, and they use plain old x, y and z.
+
+42
+00:06:10,625 --> 00:06:15,935
+And in these coordinates, the metric is just flat space, plus one correction for gravity. That's all.
+
+43
+00:06:16,435 --> 00:06:27,399
+The correction has two ingredients. First, f. It's a number that says how strong gravity is where you are: two M over r. Huge near the hole, fading out as you move away.
+
+44
+00:06:27,899 --> 00:06:33,423
+Second, L. It's an arrow of length one, that always points straight away from the hole.
+
+45
+00:06:33,923 --> 00:06:40,846
+Now we plug that into H and work out the slopes. That's a full page of calculus, and I'm going to save you from it. Here's the result.
+
+46
+00:06:41,346 --> 00:06:51,213
+First, a little helper called A. L dot p is a dot product: how much of the momentum points away from the hole. And p t is the photon's energy. That one never changes.
+
+47
+00:06:51,713 --> 00:06:56,942
+Rule one. The light moves along its momentum, with a small nudge along L from gravity.
+
+48
+00:06:57,442 --> 00:07:03,481
+Rule two. Gravity turns the momentum. And that, right there, is what bends the ray.
+
+49
+00:07:03,981 --> 00:07:11,547
+See that upside-down triangle? It's called a gradient. It's just an arrow pointing in the direction where something grows fastest.
+
+50
+00:07:12,047 --> 00:07:21,696
+And the gradient of f comes out as two M over r squared, pointing at the hole. An inverse-square pull. Sound familiar? Newton's gravity was hiding in there the whole time.
+
+51
+00:07:22,196 --> 00:07:31,594
+So this is what we've got: two short vector equations, in ordinary x, y, z, and nothing in them blows up at the horizon. These are the equations we're going to code.
+
+52
+00:07:32,967 --> 00:07:40,405
+So, that's the physics. Light takes the straightest path through bent space, and we've boiled that down to two rules a computer can step through.
+
+53
+00:07:40,900 --> 00:07:49,913
+And here's the cool part: everything you'll see from now on, the shadow, the halo, the glowing disk, all of it comes out of these two equations.
+
+54
+00:07:50,900 --> 00:07:59,063
+Next episode, we turn them into real code. About two hundred lines of C plus plus, and your first steps with OpenGL. See you there.
+

@@ -1,0 +1,40 @@
+Ray Tracing a Black Hole on the GPU | Building a Black Hole Simulator, Part 3
+
+------------------------------------------------------------
+
+One ray of light for every pixel, a few hundred steps each, sixty times a second. We move the physics into a GLSL fragment shader and fly a camera around the black hole in real time.
+
+In this video:
+- How a ray tracer makes a picture, and why a black hole breaks it
+- Why this needs the graphics card
+- Covering the screen with a single triangle
+- Porting the physics from C++ to GLSL
+- Building a camera from two angles and cross products
+- Reading the result: the shadow and the lensed sky
+
+The code for this part: https://github.com/talporat/black-hole-simulator (folder stages/02_raytracer_3d).
+
+Chapters
+0:00 Recap
+0:33 How a ray tracer works
+1:27 Why the graphics card?
+2:11 One triangle to cover the screen
+2:53 Moving the physics into a shader
+3:29 The camera
+4:17 One ray per pixel
+4:52 The tracing loop
+5:24 Painting the sky
+5:43 The result
+
+The series (Building a Black Hole Simulator):
+- Part 1: Why Light Bends Around a Black Hole
+- Part 2: Bending Light in 200 Lines of C++ and OpenGL
+- Part 4: The Glowing Disk: Doppler, Redshift and Tone Mapping
+
+Credits
+- Narration: AI-generated voice (Chatterbox, open source).
+- Music: synthesised in code for this series.
+- Animations: Manim Community Edition. Black hole renders: the C++/OpenGL simulator built in this series.
+- Portraits (public domain, Wikimedia Commons): Isaac Newton (Godfrey Kneller, 1689), Albert Einstein (Ferdinand Schmutzer, 1921), Karl Schwarzschild, William Rowan Hamilton, Leonhard Euler (Jakob Emanuel Handmann, 1753), Christian Doppler.
+
+Tags: black hole, ray tracing, general relativity, OpenGL, C++, GLSL, shaders, physics simulation, gravitational lensing, Schwarzschild, Einstein, programming tutorial, computer graphics, physics explained

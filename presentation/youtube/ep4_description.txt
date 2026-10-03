@@ -1,0 +1,41 @@
+The Glowing Disk: Doppler, Redshift and Tone Mapping | Building a Black Hole Simulator, Part 4
+
+------------------------------------------------------------
+
+We give the black hole a disk of hot gas orbiting at half the speed of light, and explain the two most famous features of a black hole image: the halo, and the lopsided glow.
+
+In this video:
+- Why one flat disk shows up three times
+- Finding where a ray crosses the disk
+- Orbital speed from centripetal force and gravity
+- Doppler shift and gravitational redshift in one number
+- Floating-point textures, framebuffers and tone mapping in OpenGL
+
+The code for this part: https://github.com/talporat/black-hole-simulator (folder stages/03_disk).
+
+Chapters
+0:00 Recap
+0:31 One disk, three images
+1:11 Did the ray hit the disk?
+1:58 How fast does the gas orbit?
+2:37 The spinning disk in the shader
+3:24 Doppler shift and redshift
+4:00 Colour in the shader
+4:35 Why hot gas glows
+5:15 Too bright for the screen
+5:33 Textures and framebuffers
+6:17 Tone mapping
+6:39 The final result
+
+The series (Building a Black Hole Simulator):
+- Part 1: Why Light Bends Around a Black Hole
+- Part 2: Bending Light in 200 Lines of C++ and OpenGL
+- Part 3: Ray Tracing a Black Hole on the GPU
+
+Credits
+- Narration: AI-generated voice (Chatterbox, open source).
+- Music: synthesised in code for this series.
+- Animations: Manim Community Edition. Black hole renders: the C++/OpenGL simulator built in this series.
+- Portraits (public domain, Wikimedia Commons): Isaac Newton (Godfrey Kneller, 1689), Albert Einstein (Ferdinand Schmutzer, 1921), Karl Schwarzschild, William Rowan Hamilton, Leonhard Euler (Jakob Emanuel Handmann, 1753), Christian Doppler.
+
+Tags: black hole, ray tracing, general relativity, OpenGL, C++, GLSL, shaders, physics simulation, gravitational lensing, Schwarzschild, Einstein, programming tutorial, computer graphics, physics explained

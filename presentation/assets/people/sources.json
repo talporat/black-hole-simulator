@@ -1,0 +1,32 @@
+{
+ "newton": {
+  "file": "File:GodfreyKneller-IsaacNewton-1689.jpg",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:GodfreyKneller-IsaacNewton-1689.jpg"
+ },
+ "einstein": {
+  "file": "File:Einstein 1921 by F Schmutzer - restoration.jpg",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Einstein_1921_by_F_Schmutzer_-_restoration.jpg"
+ },
+ "schwarzschild": {
+  "file": "File:Schwarzschild.jpg",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Schwarzschild.jpg"
+ },
+ "hamilton": {
+  "file": "File:William Rowan Hamilton portrait oval combined.png",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:William_Rowan_Hamilton_portrait_oval_combined.png"
+ },
+ "euler": {
+  "file": "File:Leonhard Euler.jpg",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Leonhard_Euler.jpg"
+ },
+ "doppler": {
+  "file": "File:Christian Doppler.jpg",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Christian_Doppler.jpg"
+ }
+}

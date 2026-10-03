@@ -1,0 +1,36 @@
+Why Light Bends Around a Black Hole | Building a Black Hole Simulator, Part 1
+
+------------------------------------------------------------
+
+Light has no mass, so why does gravity bend it? In this first part we go from Newton and Pythagoras to the two equations that tell light how to move near a black hole. Those two equations are all our simulator will need.
+
+In this video:
+- Why massless light still bends, and what Einstein changed
+- What a metric is, built up from Pythagoras
+- The event horizon, the photon sphere and the innermost stable orbit
+- Hamilton's equations, explained with a thrown ball
+- A form of the equations a computer can use without dividing by zero
+
+All the code for the series: https://github.com/talporat/black-hole-simulator
+
+Chapters
+0:00 Intro
+1:19 Why does light bend?
+2:09 From Pythagoras to the metric
+3:33 Three distances that matter
+4:15 How light moves: two rules
+5:34 A formula a computer can use
+7:32 Recap and what's next
+
+The series (Building a Black Hole Simulator):
+- Part 2: Bending Light in 200 Lines of C++ and OpenGL
+- Part 3: Ray Tracing a Black Hole on the GPU
+- Part 4: The Glowing Disk: Doppler, Redshift and Tone Mapping
+
+Credits
+- Narration: AI-generated voice (Chatterbox, open source).
+- Music: synthesised in code for this series.
+- Animations: Manim Community Edition. Black hole renders: the C++/OpenGL simulator built in this series.
+- Portraits (public domain, Wikimedia Commons): Isaac Newton (Godfrey Kneller, 1689), Albert Einstein (Ferdinand Schmutzer, 1921), Karl Schwarzschild, William Rowan Hamilton, Leonhard Euler (Jakob Emanuel Handmann, 1753), Christian Doppler.
+
+Tags: black hole, ray tracing, general relativity, OpenGL, C++, GLSL, shaders, physics simulation, gravitational lensing, Schwarzschild, Einstein, programming tutorial, computer graphics, physics explained

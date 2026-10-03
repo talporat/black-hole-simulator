@@ -1,0 +1,1346 @@
+[
+ {
+  "id": "E1_01_Hook_00",
+  "episode": "ep1",
+  "scene": "E1_01_Hook",
+  "text": "This is a black hole. And no, it's not from a movie, and it's not from NASA. It's a program, running live on my laptop."
+ },
+ {
+  "id": "E1_01_Hook_01",
+  "episode": "ep1",
+  "scene": "E1_01_Hook",
+  "text": "And here's my promise: by the end of this series, you'll have built this yourself. From an empty file. And you'll understand every single line."
+ },
+ {
+  "id": "E1_01_Hook_02",
+  "episode": "ep1",
+  "scene": "E1_01_Hook",
+  "text": "Because here's what blows my mind. Nobody drew that glowing halo. Nobody painted that shadow. There's no 3D model in here. Every pixel just asks one question: if light landed here, where did it come from?"
+ },
+ {
+  "id": "E1_01_Hook_03",
+  "episode": "ep1",
+  "scene": "E1_01_Hook",
+  "text": "So let's build it. The physics and the code, side by side."
+ },
+ {
+  "id": "E1_01_Hook_04",
+  "episode": "ep1",
+  "scene": "E1_01_Hook",
+  "text": "We'll do it in four episodes. And from episode two on, every single one ends with a program you can actually run."
+ },
+ {
+  "id": "E1_01_Hook_05",
+  "episode": "ep1",
+  "scene": "E1_01_Hook",
+  "text": "Episode one, that's today, is the physics. Stick with me to the end of this video, and you'll know exactly why light bends, and the two equations our whole program runs on."
+ },
+ {
+  "id": "E1_01_Hook_06",
+  "episode": "ep1",
+  "scene": "E1_01_Hook",
+  "text": "Episode two: we turn those equations into real code, and draw light rays bending around a black hole."
+ },
+ {
+  "id": "E1_01_Hook_07",
+  "episode": "ep1",
+  "scene": "E1_01_Hook",
+  "text": "Episode three: a full three-dimensional ray tracer, on your graphics card. And episode four: the glowing disk of gas, spinning."
+ },
+ {
+  "id": "E1_01_Hook_08",
+  "episode": "ep1",
+  "scene": "E1_01_Hook",
+  "text": "Now, quick heads up: some of this physics is university level. Don't worry about that. Every piece has a high-school version, and that's where we start."
+ },
+ {
+  "id": "E1_02_WhyLightBends_00",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "Let's kick off with something you already know: Newton's law of gravity. The heavier something is, the harder gravity pulls on it."
+ },
+ {
+  "id": "E1_02_WhyLightBends_01",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "But wait. Light has no mass. Literally zero. So according to Newton, gravity shouldn't do anything to it."
+ },
+ {
+  "id": "E1_02_WhyLightBends_02",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "Except it does! In 1919, astronomers photographed stars right next to the Sun during an eclipse. And the starlight was bent."
+ },
+ {
+  "id": "E1_02_WhyLightBends_03",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "So what's going on? Einstein's answer sounds crazy: gravity isn't a force at all. Mass bends space and time themselves."
+ },
+ {
+  "id": "E1_02_WhyLightBends_04",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "Light still travels as straight as it possibly can. It's the space that's bent. So to us, the path looks curved."
+ },
+ {
+  "id": "E1_02_WhyLightBends_05",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "It's like a plane flying dead straight over the round Earth. Draw that route on a flat map, and you get an arc. Same thing."
+ },
+ {
+  "id": "E1_02_WhyLightBends_06",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "Okay, but we want to calculate stuff. So we need a formula for that bending. And we'll start with an old friend: Pythagoras."
+ },
+ {
+  "id": "E1_02_WhyLightBends_07",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "Take a tiny step across, and call it d x. And a tiny step up, d y. That little d just means: a tiny change in. So the tiny distance you've covered is d s."
+ },
+ {
+  "id": "E1_02_WhyLightBends_08",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "Add a third dimension, easy. Now add time. And this is the weird part: time goes in with a minus sign."
+ },
+ {
+  "id": "E1_02_WhyLightBends_09",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "A formula like this has a name: a metric. It's the rulebook for measuring distances in space and time together. This one describes flat, empty space."
+ },
+ {
+  "id": "E1_02_WhyLightBends_10",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "Near a mass, the rulebook changes. A physicist called Karl Schwarzschild figured out how, in 1915. Same idea, just written with r, the distance from the centre, and capital omega, which is the direction you're in, around the hole."
+ },
+ {
+  "id": "E1_02_WhyLightBends_11",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "But look closely: two terms picked up an extra factor. One minus two M over r. Far away, r is huge, the factor is basically one, and space is flat again. Up close? Clocks tick differently, and rulers measure differently."
+ },
+ {
+  "id": "E1_02_WhyLightBends_12",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "Quick word on units. M here is the mass turned into a length: G times M, over c squared. For the Sun, that's about one and a half kilometres. For the Earth? About four millimetres. Tiny."
+ },
+ {
+  "id": "E1_02_WhyLightBends_13",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "Now, there are three distances I want you to remember."
+ },
+ {
+  "id": "E1_02_WhyLightBends_14",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "Number one: r equals two M. That's the event horizon. Cross it, and nothing gets back out. Not even light."
+ },
+ {
+  "id": "E1_02_WhyLightBends_15",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "Here's a nice way to remember it. Take the escape velocity formula from school, and ask: where does it reach the speed of light? You land on exactly this radius."
+ },
+ {
+  "id": "E1_02_WhyLightBends_16",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "Number two: three M. Gravity is so strong here that light itself can go around in circles. That's the photon sphere."
+ },
+ {
+  "id": "E1_02_WhyLightBends_17",
+  "episode": "ep1",
+  "scene": "E1_02_WhyLightBends",
+  "text": "And number three: six M. That's the closest anything can orbit safely. Our disk of gas is going to start right there."
+ },
+ {
+  "id": "E1_03_TwoRules_00",
+  "episode": "ep1",
+  "scene": "E1_03_TwoRules",
+  "text": "So how does light actually move through bent space? The path has a fancy name: a geodesic. All it means is the straightest path available."
+ },
+ {
+  "id": "E1_03_TwoRules_01",
+  "episode": "ep1",
+  "scene": "E1_03_TwoRules",
+  "text": "To compute one, think about how you'd simulate a ball flying through the air. You only track two things: where it is, and how fast it's going."
+ },
+ {
+  "id": "E1_03_TwoRules_02",
+  "episode": "ep1",
+  "scene": "E1_03_TwoRules",
+  "text": "And you only need two rules. Rule one: the velocity changes the position."
+ },
+ {
+  "id": "E1_03_TwoRules_03",
+  "episode": "ep1",
+  "scene": "E1_03_TwoRules",
+  "text": "Rule two: the force changes the velocity. Run those two rules again and again, in tiny steps, and you get the ball's whole path."
+ },
+ {
+  "id": "E1_03_TwoRules_04",
+  "episode": "ep1",
+  "scene": "E1_03_TwoRules",
+  "text": "For light, it's exactly the same game, with a position x and a momentum p. The momentum tells you which way the light is going, and how much energy it's carrying."
+ },
+ {
+  "id": "E1_03_TwoRules_05",
+  "episode": "ep1",
+  "scene": "E1_03_TwoRules",
+  "text": "And both rules come out of one single function, called H. It's built from the metric. Think of it as the photon's energy."
+ },
+ {
+  "id": "E1_03_TwoRules_06",
+  "episode": "ep1",
+  "scene": "E1_03_TwoRules",
+  "text": "Rule one: the position changes with the slope of H, as you vary the momentum."
+ },
+ {
+  "id": "E1_03_TwoRules_07",
+  "episode": "ep1",
+  "scene": "E1_03_TwoRules",
+  "text": "Rule two: the momentum changes with minus the slope of H, as you vary the position."
+ },
+ {
+  "id": "E1_03_TwoRules_08",
+  "episode": "ep1",
+  "scene": "E1_03_TwoRules",
+  "text": "These are Hamilton's equations. That's university physics, and no, we're not deriving them today. Just look at the shape: two rules, applied over and over. Exactly like the ball."
+ },
+ {
+  "id": "E1_03_TwoRules_09",
+  "episode": "ep1",
+  "scene": "E1_03_TwoRules",
+  "text": "One small thing. Light doesn't carry a clock. So instead of time, we use lambda. Think of it as a distance marker along the ray."
+ },
+ {
+  "id": "E1_04_Formula_00",
+  "episode": "ep1",
+  "scene": "E1_04_Formula",
+  "text": "Now, before we write any code, we've got a problem. Look at this factor in Schwarzschild's formula. At r equals two M, it becomes one divided by zero. Uh oh."
+ },
+ {
+  "id": "E1_04_Formula_01",
+  "episode": "ep1",
+  "scene": "E1_04_Formula",
+  "text": "Here's the thing though: nothing is actually broken in space there. It's the coordinates that break. Like longitude at the North Pole. It just stops meaning anything."
+ },
+ {
+  "id": "E1_04_Formula_02",
+  "episode": "ep1",
+  "scene": "E1_04_Formula",
+  "text": "But a computer following a ray doesn't care about that. It would crash straight into the division by zero."
+ },
+ {
+  "id": "E1_04_Formula_03",
+  "episode": "ep1",
+  "scene": "E1_04_Formula",
+  "text": "So here's the fix: describe the same space with better coordinates. They're called Kerr-Schild coordinates, and they use plain old x, y and z."
+ },
+ {
+  "id": "E1_04_Formula_04",
+  "episode": "ep1",
+  "scene": "E1_04_Formula",
+  "text": "And in these coordinates, the metric is just flat space, plus one correction for gravity. That's all."
+ },
+ {
+  "id": "E1_04_Formula_05",
+  "episode": "ep1",
+  "scene": "E1_04_Formula",
+  "text": "The correction has two ingredients. First, f. It's a number that says how strong gravity is where you are: two M over r. Huge near the hole, fading out as you move away."
+ },
+ {
+  "id": "E1_04_Formula_06",
+  "episode": "ep1",
+  "scene": "E1_04_Formula",
+  "text": "Second, L. It's an arrow of length one, that always points straight away from the hole."
+ },
+ {
+  "id": "E1_04_Formula_07",
+  "episode": "ep1",
+  "scene": "E1_04_Formula",
+  "text": "Now we plug that into H and work out the slopes. That's a full page of calculus, and I'm going to save you from it. Here's the result."
+ },
+ {
+  "id": "E1_04_Formula_08",
+  "episode": "ep1",
+  "scene": "E1_04_Formula",
+  "text": "First, a little helper called A. L dot p is a dot product: how much of the momentum points away from the hole. And p t is the photon's energy. That one never changes."
+ },
+ {
+  "id": "E1_04_Formula_09",
+  "episode": "ep1",
+  "scene": "E1_04_Formula",
+  "text": "Rule one. The light moves along its momentum, with a small nudge along L from gravity."
+ },
+ {
+  "id": "E1_04_Formula_10",
+  "episode": "ep1",
+  "scene": "E1_04_Formula",
+  "text": "Rule two. Gravity turns the momentum. And that, right there, is what bends the ray."
+ },
+ {
+  "id": "E1_04_Formula_11",
+  "episode": "ep1",
+  "scene": "E1_04_Formula",
+  "text": "See that upside-down triangle? It's called a gradient. It's just an arrow pointing in the direction where something grows fastest."
+ },
+ {
+  "id": "E1_04_Formula_12",
+  "episode": "ep1",
+  "scene": "E1_04_Formula",
+  "text": "And the gradient of f comes out as two M over r squared, pointing at the hole. An inverse-square pull. Sound familiar? Newton's gravity was hiding in there the whole time."
+ },
+ {
+  "id": "E1_04_Formula_13",
+  "episode": "ep1",
+  "scene": "E1_04_Formula",
+  "text": "So this is what we've got: two short vector equations, in ordinary x, y, z, and nothing in them blows up at the horizon. These are the equations we're going to code."
+ },
+ {
+  "id": "E1_05_Next_00",
+  "episode": "ep1",
+  "scene": "E1_05_Next",
+  "text": "So, that's the physics. Light takes the straightest path through bent space, and we've boiled that down to two rules a computer can step through."
+ },
+ {
+  "id": "E1_05_Next_01",
+  "episode": "ep1",
+  "scene": "E1_05_Next",
+  "text": "And here's the cool part: everything you'll see from now on, the shadow, the halo, the glowing disk, all of it comes out of these two equations."
+ },
+ {
+  "id": "E1_05_Next_02",
+  "episode": "ep1",
+  "scene": "E1_05_Next",
+  "text": "Next episode, we turn them into real code. About two hundred lines of C plus plus, and your first steps with OpenGL. See you there."
+ },
+ {
+  "id": "E2_01_Recap_00",
+  "episode": "ep2",
+  "scene": "E2_01_Recap",
+  "text": "Welcome back! Last time, we worked out why light bends near a black hole, and boiled it all down to these two rules."
+ },
+ {
+  "id": "E2_01_Recap_01",
+  "episode": "ep2",
+  "scene": "E2_01_Recap",
+  "text": "Today, we turn them into code. By the end of this video, you'll have about two hundred lines of C plus plus that bend light the way Einstein says it should, and you'll have drawn it with OpenGL."
+ },
+ {
+  "id": "E2_02_Plan_00",
+  "episode": "ep2",
+  "scene": "E2_02_Plan",
+  "text": "Alright, enough theory. Let's turn those two rules into a real program. Stage one is simple on purpose: a flat picture of light rays flying past a black hole."
+ },
+ {
+  "id": "E2_02_Plan_01",
+  "episode": "ep2",
+  "scene": "E2_02_Plan",
+  "text": "The program has two halves. Half one is physics. For every ray, the processor runs our two rules, step after step, and writes down where the ray went."
+ },
+ {
+  "id": "E2_02_Plan_02",
+  "episode": "ep2",
+  "scene": "E2_02_Plan",
+  "text": "Half two is drawing. We hand those points to the graphics card and say: connect the dots. And for that, we use OpenGL."
+ },
+ {
+  "id": "E2_02_Plan_03",
+  "episode": "ep2",
+  "scene": "E2_02_Plan",
+  "text": "So what is OpenGL? It's a standard way for your program to talk to the graphics card. And honestly? All it can draw is points, lines and triangles. That's it. Every game you've ever played is built out of those."
+ },
+ {
+  "id": "E2_02_Plan_04",
+  "episode": "ep2",
+  "scene": "E2_02_Plan",
+  "text": "We're writing this in C plus plus. One file, about two hundred lines. Physics first."
+ },
+ {
+  "id": "E2_03_CodePhysics_00",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "We start tiny: a two-dimensional vector. An x and a y. We can add them, subtract them, scale them, take a dot product, and get the length. That's all the vector maths we need."
+ },
+ {
+  "id": "E2_03_CodePhysics_01",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "And this is the heart of the whole thing: a function called derivatives. You give it where the ray is, x, and its momentum, p. It tells you how fast each one is changing."
+ },
+ {
+  "id": "E2_03_CodePhysics_02",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "r is the distance from the hole. Easy."
+ },
+ {
+  "id": "E2_03_CodePhysics_03",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "L is our arrow of length one, pointing away from the hole. That's just the position divided by its own length."
+ },
+ {
+  "id": "E2_03_CodePhysics_04",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "f is how strong gravity is here: two M over r."
+ },
+ {
+  "id": "E2_03_CodePhysics_05",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "Then the two gradients that rule two needs. The first one is our inverse-square pull."
+ },
+ {
+  "id": "E2_03_CodePhysics_06",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "A is the helper: L dot p, minus p t."
+ },
+ {
+  "id": "E2_03_CodePhysics_07",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "And now, the two rules, exactly like they were on the board. Rule one: how the position changes."
+ },
+ {
+  "id": "E2_03_CodePhysics_08",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "Rule two: how the momentum changes. Seriously, compare them term by term. The code is the equation."
+ },
+ {
+  "id": "E2_03_CodePhysics_09",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "We're missing one thing though: p t. Remember, for light, H has to be zero. Write that out and, surprise, it's a quadratic equation, with p t as the unknown."
+ },
+ {
+  "id": "E2_03_CodePhysics_10",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "And you already know how to solve a quadratic. It's the formula from school."
+ },
+ {
+  "id": "E2_03_CodePhysics_11",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "So that's this function. It works out a, b and c, and returns the root. And now our ray really is a ray of light."
+ },
+ {
+  "id": "E2_03_CodePhysics_12",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "Okay. We know how fast x and p are changing, so let's take a step. The obvious way is Euler's method. It's what you'd do in a spreadsheet: new value equals old value, plus the rate of change, times a step size h."
+ },
+ {
+  "id": "E2_03_CodePhysics_13",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "But there's a catch. The rate of change keeps changing during the step. So Euler slowly drifts off the true path. And near a black hole, that error grows fast."
+ },
+ {
+  "id": "E2_03_CodePhysics_14",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "So we use something much better: Runge-Kutta four. It measures the rate of change four times: once at the start, twice in the middle, and once at the end."
+ },
+ {
+  "id": "E2_03_CodePhysics_15",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "Then it averages the four, with the middle ones counting double."
+ },
+ {
+  "id": "E2_03_CodePhysics_16",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "Same step size. Same number of steps. And look at that: right on the true path."
+ },
+ {
+  "id": "E2_03_CodePhysics_17",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "Last one: trace ray, which puts everything together. It starts at a point, heading in some direction. The direction is the momentum, and photon energy gives us p t."
+ },
+ {
+  "id": "E2_03_CodePhysics_18",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "Then it loops. And every time around, it asks: how far is this ray from the hole?"
+ },
+ {
+  "id": "E2_03_CodePhysics_19",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "Closer than two M? It's crossed the horizon. Mark it as captured. Done."
+ },
+ {
+  "id": "E2_03_CodePhysics_20",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "Really far away? It's gone. Done."
+ },
+ {
+  "id": "E2_03_CodePhysics_21",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "Otherwise, take one Runge-Kutta step and save the new point. And check out the step size: it's proportional to r. Small, careful steps near the hole, and big strides far away."
+ },
+ {
+  "id": "E2_03_CodePhysics_22",
+  "episode": "ep2",
+  "scene": "E2_03_CodePhysics",
+  "text": "And what comes back is a list of points: the path of one ray of light."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_00",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "Now the fun half: drawing. Step one, we need a window. OpenGL can't open one on its own, so we use a small library called G L F W."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_01",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "These lines ask for OpenGL version four point one, in its modern flavour, called the core profile."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_02",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "Create window opens the window. And make context current says: from now on, OpenGL commands draw into this one."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_03",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "Step two. The graphics card has no idea what to do with our points, until we hand it two small programs called shaders. They're written in a language that looks a lot like C, called G L S L."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_04",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "The vertex shader runs once for every point, and answers one question: where on the screen does this point go?"
+ },
+ {
+  "id": "E2_04_CodeOpenGL_05",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "The fragment shader runs once for every pixel a line covers, and answers: what colour is it?"
+ },
+ {
+  "id": "E2_04_CodeOpenGL_06",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "Here's our vertex shader. Its input, a pos, is one point of a ray, measured in units of M."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_07",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "Now, OpenGL's screen always goes from minus one to plus one, across and up. So the shader just divides by the size of the area we want to see. That's literally the whole job."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_08",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "u view size is what's called a uniform: a value our C plus plus program sets, and it's the same for every point."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_09",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "The fragment shader is even shorter. Every pixel on the line gets the colour stored in another uniform, u color."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_10",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "Fun fact: shaders get compiled while your program is running. Compile shader hands the source text to OpenGL, and compiles it."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_11",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "Then it checks if that worked. If we made a typo, it prints the compiler's message. Trust me, you want this. Without it, a broken shader just gives you a black window, and zero clues."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_12",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "Make program compiles both shaders and links them into one program we can draw with."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_13",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "Step three: getting our points onto the graphics card. A vertex buffer is a chunk of the card's memory that holds them."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_14",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "But it's just a row of numbers. So we also need a vertex array, which remembers how to read them. Here we're saying: attribute zero, our a pos, is two floats per point."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_15",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "With all that in place, drawing one ray is just three calls. Buffer data copies the ray's points into the vertex buffer."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_16",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "Uniform three f sets the colour for the fragment shader."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_17",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "And draw arrays says: go, draw them. The mode says how to connect the points. Line strip joins each point to the next one. And that's a ray."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_18",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "Triangle fan makes a filled shape out of triangles that all share one corner. That's how we draw the black disc of the hole."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_19",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "Last piece: the main loop. It runs once per frame, until you close the window."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_20",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "Clear the screen to a dark colour. Switch on our shader program, and tell it how much of the world to show."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_21",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "Then draw every ray we traced: red if it got captured, blue if it escaped."
+ },
+ {
+  "id": "E2_04_CodeOpenGL_22",
+  "episode": "ep2",
+  "scene": "E2_04_CodeOpenGL",
+  "text": "Draw the hole on top. Swap buffers puts the finished frame on screen. And poll events lets the window react to your mouse and keyboard."
+ },
+ {
+  "id": "E2_05_Result_00",
+  "episode": "ep2",
+  "scene": "E2_05_Result",
+  "text": "And here it is, running! Every curve you're looking at is one ray of light, traced with our two rules."
+ },
+ {
+  "id": "E2_05_Result_01",
+  "episode": "ep2",
+  "scene": "E2_05_Result",
+  "text": "Rays far from the hole bend just a little. The red ones got too close, and crossed the horizon."
+ },
+ {
+  "id": "E2_05_Result_02",
+  "episode": "ep2",
+  "scene": "E2_05_Result",
+  "text": "The gold ray follows the mouse. Now watch what happens as it moves toward the centre."
+ },
+ {
+  "id": "E2_05_Result_03",
+  "episode": "ep2",
+  "scene": "E2_05_Result",
+  "text": "Whoa. Right at the edge, it wraps all the way around the hole before it escapes. It's skimming the photon sphere at three M. That's the grey circle."
+ },
+ {
+  "id": "E2_05_Result_04",
+  "episode": "ep2",
+  "scene": "E2_05_Result",
+  "text": "Let's zoom in on that boundary. There's one exact aim where a ray doesn't fall in, and doesn't fly past either. It just circles the photon sphere."
+ },
+ {
+  "id": "E2_05_Result_05",
+  "episode": "ep2",
+  "scene": "E2_05_Result",
+  "text": "That ray starts out aimed off-centre by three times the square root of three, times M. About five point two M."
+ },
+ {
+  "id": "E2_05_Result_06",
+  "episode": "ep2",
+  "scene": "E2_05_Result",
+  "text": "Anything aimed closer than that is gone. So from far away, the hole blacks out a disc more than two and a half times wider than its horizon. That disc is the black hole's shadow."
+ },
+ {
+  "id": "E2_05_Result_07",
+  "episode": "ep2",
+  "scene": "E2_05_Result",
+  "text": "So that's the promise kept: a program that bends light correctly, in about two hundred lines. But let's be honest, it's a diagram. It's not a picture yet."
+ },
+ {
+  "id": "E2_05_Result_08",
+  "episode": "ep2",
+  "scene": "E2_05_Result",
+  "text": "In the next episode, we drop a camera into this world, and trace one ray for every pixel, on the graphics card. That's where it starts to look real. See you there."
+ },
+ {
+  "id": "E3_01_Recap_00",
+  "episode": "ep3",
+  "scene": "E3_01_Recap",
+  "text": "Welcome back! Last time, we worked out the two rules light follows near a black hole, and wrote a program that traces rays with them."
+ },
+ {
+  "id": "E3_01_Recap_01",
+  "episode": "ep3",
+  "scene": "E3_01_Recap",
+  "text": "But all we got was a diagram. Lines on a flat page."
+ },
+ {
+  "id": "E3_01_Recap_02",
+  "episode": "ep3",
+  "scene": "E3_01_Recap",
+  "text": "Today we fix that. By the end of this video, you'll be flying a camera around a black hole, in real time, and seeing what you'd actually see if you were there."
+ },
+ {
+  "id": "E3_01_Recap_03",
+  "episode": "ep3",
+  "scene": "E3_01_Recap",
+  "text": "To pull that off, we need three new things. A camera. A ray of light for every single pixel. And a way to run our physics on the graphics card."
+ },
+ {
+  "id": "E3_02_RayTracing_00",
+  "episode": "ep3",
+  "scene": "E3_02_RayTracing",
+  "text": "So how does a normal ray tracer make a picture? There's a camera, and in front of it, a grid of pixels. That's your screen."
+ },
+ {
+  "id": "E3_02_RayTracing_01",
+  "episode": "ep3",
+  "scene": "E3_02_RayTracing",
+  "text": "For every pixel, we shoot a ray from the camera, through that pixel, and ask: what does it hit?"
+ },
+ {
+  "id": "E3_02_RayTracing_02",
+  "episode": "ep3",
+  "scene": "E3_02_RayTracing",
+  "text": "Yes, that's backwards from how real light travels. But it's clever: we only bother with the rays that actually reach the camera."
+ },
+ {
+  "id": "E3_02_RayTracing_03",
+  "episode": "ep3",
+  "scene": "E3_02_RayTracing",
+  "text": "In normal space, light goes in straight lines. So a ray is just a start point plus a direction, and hitting a sphere is one quadratic equation. Easy."
+ },
+ {
+  "id": "E3_02_RayTracing_04",
+  "episode": "ep3",
+  "scene": "E3_02_RayTracing",
+  "text": "Now swap the sphere for a black hole."
+ },
+ {
+  "id": "E3_02_RayTracing_05",
+  "episode": "ep3",
+  "scene": "E3_02_RayTracing",
+  "text": "And the rays bend. Some swing around the back. Some never come out."
+ },
+ {
+  "id": "E3_02_RayTracing_06",
+  "episode": "ep3",
+  "scene": "E3_02_RayTracing",
+  "text": "There's no neat formula for these paths. To find out where a ray ends up, we have to walk along it, one small step at a time."
+ },
+ {
+  "id": "E3_02_RayTracing_07",
+  "episode": "ep3",
+  "scene": "E3_02_RayTracing",
+  "text": "The good news? We already know how to take a step. It's the two rules from last time."
+ },
+ {
+  "id": "E3_03_WhyGPU_00",
+  "episode": "ep3",
+  "scene": "E3_03_WhyGPU",
+  "text": "But one ray per pixel adds up fast. Even a small window has about a million pixels."
+ },
+ {
+  "id": "E3_03_WhyGPU_01",
+  "episode": "ep3",
+  "scene": "E3_03_WhyGPU",
+  "text": "Each ray needs a hundred steps or more."
+ },
+ {
+  "id": "E3_03_WhyGPU_02",
+  "episode": "ep3",
+  "scene": "E3_03_WhyGPU",
+  "text": "And for smooth motion, we want sixty pictures every second."
+ },
+ {
+  "id": "E3_03_WhyGPU_03",
+  "episode": "ep3",
+  "scene": "E3_03_WhyGPU",
+  "text": "Do the maths. That's billions of Runge-Kutta steps, every single second."
+ },
+ {
+  "id": "E3_03_WhyGPU_04",
+  "episode": "ep3",
+  "scene": "E3_03_WhyGPU",
+  "text": "A processor grinds through them a few at a time. Way too slow."
+ },
+ {
+  "id": "E3_03_WhyGPU_05",
+  "episode": "ep3",
+  "scene": "E3_03_WhyGPU",
+  "text": "A graphics card is a different beast. It has thousands of small cores, and it runs the same little program on every pixel, all at once."
+ },
+ {
+  "id": "E3_03_WhyGPU_06",
+  "episode": "ep3",
+  "scene": "E3_03_WhyGPU",
+  "text": "And you've already met that little program. It's the fragment shader! Last time, all it did was return a colour. This time, it does the physics."
+ },
+ {
+  "id": "E3_04_Triangle_00",
+  "episode": "ep3",
+  "scene": "E3_04_Triangle",
+  "text": "One catch: a fragment shader only runs where something is being drawn. So we draw one shape that covers the entire screen: a single, oversized triangle."
+ },
+ {
+  "id": "E3_04_Triangle_01",
+  "episode": "ep3",
+  "scene": "E3_04_Triangle",
+  "text": "Its vertex shader doesn't even need a buffer of points. It makes up the three corners from the vertex number: zero, one, and two."
+ },
+ {
+  "id": "E3_04_Triangle_02",
+  "episode": "ep3",
+  "scene": "E3_04_Triangle",
+  "text": "They land outside the screen, which only goes from minus one to one. OpenGL trims off the extra, and what's left is exactly the screen. Neat trick, right?"
+ },
+ {
+  "id": "E3_04_Triangle_03",
+  "episode": "ep3",
+  "scene": "E3_04_Triangle",
+  "text": "On the C plus plus side, that's an empty vertex array, and one draw call with three vertices."
+ },
+ {
+  "id": "E3_04_Triangle_04",
+  "episode": "ep3",
+  "scene": "E3_04_Triangle",
+  "text": "From now on, the fragment shader runs once for every pixel in the window. Whatever colour it returns, that's what you see."
+ },
+ {
+  "id": "E3_05_Port_00",
+  "episode": "ep3",
+  "scene": "E3_05_Port",
+  "text": "Now the physics has to move out of C plus plus and into the shader. Here's our derivatives function from last time."
+ },
+ {
+  "id": "E3_05_Port_01",
+  "episode": "ep3",
+  "scene": "E3_05_Port",
+  "text": "And here's the shader version."
+ },
+ {
+  "id": "E3_05_Port_02",
+  "episode": "ep3",
+  "scene": "E3_05_Port",
+  "text": "Look how little changes! Vec two becomes vec three. And the outputs are marked with the word out, instead of being references."
+ },
+ {
+  "id": "E3_05_Port_03",
+  "episode": "ep3",
+  "scene": "E3_05_Port",
+  "text": "The body? Identical. Line for line."
+ },
+ {
+  "id": "E3_05_Port_04",
+  "episode": "ep3",
+  "scene": "E3_05_Port",
+  "text": "And that's not luck. Our two rules never said how many dimensions there are. They're written with vectors and dot products, so three dimensions comes for free."
+ },
+ {
+  "id": "E3_05_Port_05",
+  "episode": "ep3",
+  "scene": "E3_05_Port",
+  "text": "Photon energy and the Runge-Kutta step move over in exactly the same way."
+ },
+ {
+  "id": "E3_06_Camera_00",
+  "episode": "ep3",
+  "scene": "E3_06_Camera",
+  "text": "Next up: the camera. It circles the hole, and we describe where it is with two angles and a distance. Those are what your mouse changes."
+ },
+ {
+  "id": "E3_06_Camera_01",
+  "episode": "ep3",
+  "scene": "E3_06_Camera",
+  "text": "Every frame, the program turns those into a position, with sines and cosines."
+ },
+ {
+  "id": "E3_06_Camera_02",
+  "episode": "ep3",
+  "scene": "E3_06_Camera",
+  "text": "Then it needs three directions. Forward points from the camera to the hole."
+ },
+ {
+  "id": "E3_06_Camera_03",
+  "episode": "ep3",
+  "scene": "E3_06_Camera",
+  "text": "Right has to be perpendicular to forward, and to the vertical. And a cross product gives you exactly that: a vector at right angles to two others."
+ },
+ {
+  "id": "E3_06_Camera_04",
+  "episode": "ep3",
+  "scene": "E3_06_Camera",
+  "text": "And up is perpendicular to both of those."
+ },
+ {
+  "id": "E3_06_Camera_05",
+  "episode": "ep3",
+  "scene": "E3_06_Camera",
+  "text": "These get sent to the shader as uniforms. Remember: a uniform is a value the program sends to the shader, the same for every pixel."
+ },
+ {
+  "id": "E3_06_Camera_06",
+  "episode": "ep3",
+  "scene": "E3_06_Camera",
+  "text": "So when you drag the mouse, the angles change, the uniforms change, and the next frame gets traced from the new spot."
+ },
+ {
+  "id": "E3_06_Camera_07",
+  "episode": "ep3",
+  "scene": "E3_06_Camera",
+  "text": "Now we're inside the fragment shader. First, each pixel works out where it sits on the screen, from minus one to plus one."
+ },
+ {
+  "id": "E3_06_Camera_08",
+  "episode": "ep3",
+  "scene": "E3_06_Camera",
+  "text": "Its ray starts at the camera. And its direction is forward, plus a bit of right and a bit of up, depending on where the pixel is."
+ },
+ {
+  "id": "E3_06_Camera_09",
+  "episode": "ep3",
+  "scene": "E3_06_Camera",
+  "text": "That direction is the ray's momentum, p. And photon energy gives us p t, exactly like in stage one."
+ },
+ {
+  "id": "E3_06_Camera_10",
+  "episode": "ep3",
+  "scene": "E3_06_Camera",
+  "text": "One honest confession: this treats space as flat right where the camera sits. That's a fine approximation, as long as the camera keeps its distance from the hole."
+ },
+ {
+  "id": "E3_07_Loop_00",
+  "episode": "ep3",
+  "scene": "E3_07_Loop",
+  "text": "Then comes the same loop as trace ray from last time, with one difference. Instead of saving a path, it picks a colour."
+ },
+ {
+  "id": "E3_07_Loop_01",
+  "episode": "ep3",
+  "scene": "E3_07_Loop",
+  "text": "Inside the horizon? No light comes out of there. This pixel is black. Done."
+ },
+ {
+  "id": "E3_07_Loop_02",
+  "episode": "ep3",
+  "scene": "E3_07_Loop",
+  "text": "Far away? The ray escaped. Stop stepping."
+ },
+ {
+  "id": "E3_07_Loop_03",
+  "episode": "ep3",
+  "scene": "E3_07_Loop",
+  "text": "Otherwise, take one Runge-Kutta step, and go around again."
+ },
+ {
+  "id": "E3_07_Loop_04",
+  "episode": "ep3",
+  "scene": "E3_07_Loop",
+  "text": "After the loop, we ask: which way is the escaped ray heading now? Rule one gives us its velocity. Then we look up that direction in the sky."
+ },
+ {
+  "id": "E3_07_Loop_05",
+  "episode": "ep3",
+  "scene": "E3_07_Loop",
+  "text": "The sky function turns a direction into a colour. It can paint stars."
+ },
+ {
+  "id": "E3_07_Loop_06",
+  "episode": "ep3",
+  "scene": "E3_07_Loop",
+  "text": "Or it can paint a grid, like the lines of latitude and longitude on a globe, with the top half blue and the bottom half red. That makes the bending so much easier to see."
+ },
+ {
+  "id": "E3_08_Result_00",
+  "episode": "ep3",
+  "scene": "E3_08_Result",
+  "text": "And here it is! That black disc in the middle is the shadow. Every ray aimed in there fell into the hole."
+ },
+ {
+  "id": "E3_08_Result_01",
+  "episode": "ep3",
+  "scene": "E3_08_Result",
+  "text": "Its edge is exactly the critical aim we found last time: five point two M. Way bigger than the hole itself."
+ },
+ {
+  "id": "E3_08_Result_02",
+  "episode": "ep3",
+  "scene": "E3_08_Result",
+  "text": "Around it, the grid gets stretched and folded. And just outside the shadow, you can see the entire sky a second time, squeezed into a thin ring. That light went all the way around the hole."
+ },
+ {
+  "id": "E3_08_Result_03",
+  "episode": "ep3",
+  "scene": "E3_08_Result",
+  "text": "And check out the colours. The top of the sky is blue, right? But there's blue below the hole. Those rays got bent right over the top."
+ },
+ {
+  "id": "E3_08_Result_04",
+  "episode": "ep3",
+  "scene": "E3_08_Result",
+  "text": "Swap in the stars, and it looks like this. A million rays, a few hundred steps each, re-traced every single frame."
+ },
+ {
+  "id": "E3_08_Result_05",
+  "episode": "ep3",
+  "scene": "E3_08_Result",
+  "text": "Still, a black hole on its own looks a bit empty. Next time, we give it something to light it up: a disk of hot gas, orbiting at half the speed of light. Don't miss that one."
+ },
+ {
+  "id": "E4_01_Recap_00",
+  "episode": "ep4",
+  "scene": "E4_01_Recap",
+  "text": "Welcome back! Last time, we built a ray tracer. One ray for every pixel, bent by the black hole, running on the graphics card."
+ },
+ {
+  "id": "E4_01_Recap_01",
+  "episode": "ep4",
+  "scene": "E4_01_Recap",
+  "text": "But a real black hole is almost never alone. Gas spirals in toward it, and on the way down, it heats up until it glows."
+ },
+ {
+  "id": "E4_01_Recap_02",
+  "episode": "ep4",
+  "scene": "E4_01_Recap",
+  "text": "Today we add that disk. And by the end of this video, you'll have the full picture from the start of the series, and you'll know exactly where the halo and that lopsided glow come from."
+ },
+ {
+  "id": "E4_02_ThreeImages_00",
+  "episode": "ep4",
+  "scene": "E4_02_ThreeImages",
+  "text": "Our disk is thin and flat. It sits in one plane, and stretches from six M, the innermost stable orbit, out to twenty M. Here it is from the side, with the camera just above that plane."
+ },
+ {
+  "id": "E4_02_ThreeImages_01",
+  "episode": "ep4",
+  "scene": "E4_02_ThreeImages",
+  "text": "One ray goes straight to the near side of the disk. Nothing weird there."
+ },
+ {
+  "id": "E4_02_ThreeImages_02",
+  "episode": "ep4",
+  "scene": "E4_02_ThreeImages",
+  "text": "But a ray aimed above the hole gets bent down, onto the far side. So we see the back of the disk, lifted up over the shadow."
+ },
+ {
+  "id": "E4_02_ThreeImages_03",
+  "episode": "ep4",
+  "scene": "E4_02_ThreeImages",
+  "text": "And a ray aimed below the hole gets bent up, and hits the far side from underneath."
+ },
+ {
+  "id": "E4_02_ThreeImages_04",
+  "episode": "ep4",
+  "scene": "E4_02_ThreeImages",
+  "text": "So we should see three images of one flat disk. That's the picture we're about to build. And here's my favourite part: we don't write any special code for the halo. It just shows up."
+ },
+ {
+  "id": "E4_03_CodeCrossing_00",
+  "episode": "ep4",
+  "scene": "E4_03_CodeCrossing",
+  "text": "The disk is thin and flat, so finding it is easy. Here's the loop from last time, with the new lines added."
+ },
+ {
+  "id": "E4_03_CodeCrossing_01",
+  "episode": "ep4",
+  "scene": "E4_03_CodeCrossing",
+  "text": "Before each step, we remember where the ray was."
+ },
+ {
+  "id": "E4_03_CodeCrossing_02",
+  "episode": "ep4",
+  "scene": "E4_03_CodeCrossing",
+  "text": "After the step, we compare the two heights. The disk lies in the plane z equals zero. So if z changed sign, the ray must have gone through that plane."
+ },
+ {
+  "id": "E4_03_CodeCrossing_03",
+  "episode": "ep4",
+  "scene": "E4_03_CodeCrossing",
+  "text": "Where exactly? t is the fraction of the step where the height hit zero, and mix slides between the two positions by that fraction."
+ },
+ {
+  "id": "E4_03_CodeCrossing_04",
+  "episode": "ep4",
+  "scene": "E4_03_CodeCrossing",
+  "text": "Disk light gives back a colour, and how opaque the gas is at that spot. We add the colour, and shrink 'remaining': the share of light that can still come from further away."
+ },
+ {
+  "id": "E4_03_CodeCrossing_05",
+  "episode": "ep4",
+  "scene": "E4_03_CodeCrossing",
+  "text": "And then the ray just keeps going. It might reach the stars. Or it might swing around and cross the disk again. That's where the extra images come from. No extra code."
+ },
+ {
+  "id": "E4_04_Rotation_00",
+  "episode": "ep4",
+  "scene": "E4_04_Rotation",
+  "text": "Now let's make it spin. The gas is in orbit, and you can work out how fast with school physics."
+ },
+ {
+  "id": "E4_04_Rotation_01",
+  "episode": "ep4",
+  "scene": "E4_04_Rotation",
+  "text": "To move in a circle, something has to supply the centripetal force: m v squared over r. Here, gravity does that job."
+ },
+ {
+  "id": "E4_04_Rotation_02",
+  "episode": "ep4",
+  "scene": "E4_04_Rotation",
+  "text": "Cancel the small mass, solve for v, and the orbital speed is the square root of G M over r."
+ },
+ {
+  "id": "E4_04_Rotation_03",
+  "episode": "ep4",
+  "scene": "E4_04_Rotation",
+  "text": "Divide by r and you get the angular speed, omega: how fast the gas goes around. Gas close in goes around way faster than gas further out. Watch the inner dots overtake the outer ones."
+ },
+ {
+  "id": "E4_04_Rotation_04",
+  "episode": "ep4",
+  "scene": "E4_04_Rotation",
+  "text": "And here's something lovely: Einstein's theory gives exactly the same formula for circular orbits around a black hole."
+ },
+ {
+  "id": "E4_04_Rotation_05",
+  "episode": "ep4",
+  "scene": "E4_04_Rotation",
+  "text": "Into the shader. If the crossing point is inside six M, or beyond twenty M, there's no disk there, so we return nothing."
+ },
+ {
+  "id": "E4_04_Rotation_06",
+  "episode": "ep4",
+  "scene": "E4_04_Rotation",
+  "text": "Otherwise, omega is the formula we just found. Remember, our M already has the G built in."
+ },
+ {
+  "id": "E4_04_Rotation_07",
+  "episode": "ep4",
+  "scene": "E4_04_Rotation",
+  "text": "And the velocity is omega times the position, turned through a right angle. Swap x and y, and flip one sign."
+ },
+ {
+  "id": "E4_04_Rotation_08",
+  "episode": "ep4",
+  "scene": "E4_04_Rotation",
+  "text": "At the inner edge of the disk, that works out to roughly half the speed of light. Half!"
+ },
+ {
+  "id": "E4_04_Rotation_09",
+  "episode": "ep4",
+  "scene": "E4_04_Rotation",
+  "text": "To see the motion, the shader needs to know what time it is. So every frame, the program reads the clock and sends it down as one more uniform."
+ },
+ {
+  "id": "E4_04_Rotation_10",
+  "episode": "ep4",
+  "scene": "E4_04_Rotation",
+  "text": "The shader paints streaks on the disk with a noise pattern. Each point's angle gets shifted by omega times the time. So every ring turns at its own orbital speed."
+ },
+ {
+  "id": "E4_05_Doppler_00",
+  "episode": "ep4",
+  "scene": "E4_05_Doppler",
+  "text": "Now the colour. You know the Doppler effect from an ambulance driving past. The siren sounds higher coming toward you, and lower going away. Light does exactly the same thing."
+ },
+ {
+  "id": "E4_05_Doppler_01",
+  "episode": "ep4",
+  "scene": "E4_05_Doppler",
+  "text": "Gas coming toward us looks bluer and brighter. Gas moving away looks redder and dimmer."
+ },
+ {
+  "id": "E4_05_Doppler_02",
+  "episode": "ep4",
+  "scene": "E4_05_Doppler",
+  "text": "And there's a second effect. Light climbing away from the hole loses energy, like a ball thrown upward. But light can't slow down. So it turns redder instead."
+ },
+ {
+  "id": "E4_05_Doppler_03",
+  "episode": "ep4",
+  "scene": "E4_05_Doppler",
+  "text": "We can pack both effects into a single number, g: the energy of the light when it reaches us, divided by its energy when it left the gas."
+ },
+ {
+  "id": "E4_05_Doppler_04",
+  "episode": "ep4",
+  "scene": "E4_05_Doppler",
+  "text": "Here it is in the shader. First, two clock factors. Near a black hole, clocks run slow: a lot for the fast-moving gas, and a little for our camera."
+ },
+ {
+  "id": "E4_05_Doppler_05",
+  "episode": "ep4",
+  "scene": "E4_05_Doppler",
+  "text": "Emitted is the light's energy, as the gas measures it. See the dot product of p and v? That's how much the light's motion lines up with the motion of the gas. That's your Doppler effect, right there."
+ },
+ {
+  "id": "E4_05_Doppler_06",
+  "episode": "ep4",
+  "scene": "E4_05_Doppler",
+  "text": "Why the minus sign? Good question. Our ray runs from the camera to the gas. The real light went the other way. So its momentum is flipped."
+ },
+ {
+  "id": "E4_05_Doppler_07",
+  "episode": "ep4",
+  "scene": "E4_05_Doppler",
+  "text": "Received is the energy as our camera measures it. And g is one divided by the other."
+ },
+ {
+  "id": "E4_05_Doppler_08",
+  "episode": "ep4",
+  "scene": "E4_05_Doppler",
+  "text": "Now, hot things glow. Think of a stove element going from dull red, to orange, to white. The gas is hottest near the inner edge, and cooler further out."
+ },
+ {
+  "id": "E4_05_Doppler_09",
+  "episode": "ep4",
+  "scene": "E4_05_Doppler",
+  "text": "What we see is that temperature multiplied by g. Glow colour turns it into a colour. And the brightness is scaled by g to the fourth power. So a small change in g means a big change in brightness."
+ },
+ {
+  "id": "E4_05_Doppler_10",
+  "episode": "ep4",
+  "scene": "E4_05_Doppler",
+  "text": "Here's the disk with g switched off. Evenly lit, all the way around. Kind of boring."
+ },
+ {
+  "id": "E4_05_Doppler_11",
+  "episode": "ep4",
+  "scene": "E4_05_Doppler",
+  "text": "And here it is with g. The side spinning toward us blazes, and the other side fades. You'll find that lopsided glow in every real image of a black hole."
+ },
+ {
+  "id": "E4_06_Brightness_00",
+  "episode": "ep4",
+  "scene": "E4_06_Brightness",
+  "text": "One problem left. The bright side of the disk is dozens of times brighter than the dim side, and way brighter than the stars."
+ },
+ {
+  "id": "E4_06_Brightness_01",
+  "episode": "ep4",
+  "scene": "E4_06_Brightness",
+  "text": "But a normal image stores each colour as a number between zero and one. Anything brighter gets cut off, and turns into flat, boring white."
+ },
+ {
+  "id": "E4_06_Brightness_02",
+  "episode": "ep4",
+  "scene": "E4_06_Brightness",
+  "text": "So we stop drawing straight to the screen. First we create a texture: an image that lives on the graphics card. The format, R G B A sixteen F, means each colour is a floating-point number, so values way above one survive."
+ },
+ {
+  "id": "E4_06_Brightness_03",
+  "episode": "ep4",
+  "scene": "E4_06_Brightness",
+  "text": "Then a framebuffer. Normally OpenGL draws into the window. A framebuffer lets us point it somewhere else. Here we attach our texture, so the drawing lands in that image."
+ },
+ {
+  "id": "E4_06_Brightness_04",
+  "episode": "ep4",
+  "scene": "E4_06_Brightness",
+  "text": "Each frame now has two passes. Pass one: bind our framebuffer, and trace the picture exactly like before. It lands in the texture, with all its brightness intact."
+ },
+ {
+  "id": "E4_06_Brightness_05",
+  "episode": "ep4",
+  "scene": "E4_06_Brightness",
+  "text": "Pass two: bind framebuffer zero, which means the window. Then draw the big triangle again, with a second, tiny shader that reads the texture."
+ },
+ {
+  "id": "E4_06_Brightness_06",
+  "episode": "ep4",
+  "scene": "E4_06_Brightness",
+  "text": "That shader looks up this pixel in the texture, and runs it through a curve."
+ },
+ {
+  "id": "E4_06_Brightness_07",
+  "episode": "ep4",
+  "scene": "E4_06_Brightness",
+  "text": "If we just chopped everything off at one, all the bright parts would go flat. The curve squeezes large values smoothly toward one instead, so you can still see detail inside the glare."
+ },
+ {
+  "id": "E4_06_Brightness_08",
+  "episode": "ep4",
+  "scene": "E4_06_Brightness",
+  "text": "The last line corrects for how monitors display brightness, and writes the final colour."
+ },
+ {
+  "id": "E4_07_Result_00",
+  "episode": "ep4",
+  "scene": "E4_07_Result",
+  "text": "And there it is. Stage three, running."
+ },
+ {
+  "id": "E4_07_Result_01",
+  "episode": "ep4",
+  "scene": "E4_07_Result",
+  "text": "The halo over the top is the far side of the disk, its light bent toward us. The thin arc underneath is the far side again, seen from below."
+ },
+ {
+  "id": "E4_07_Result_02",
+  "episode": "ep4",
+  "scene": "E4_07_Result",
+  "text": "The left side blazes because that gas is rushing toward us. And the whole disk turns, each ring at its own speed."
+ },
+ {
+  "id": "E4_07_Result_03",
+  "episode": "ep4",
+  "scene": "E4_07_Result",
+  "text": "And remember: nothing here was drawn by hand. Two rules for light, a flat disk, and one number for the colour. That's it."
+ },
+ {
+  "id": "E4_07_Result_04",
+  "episode": "ep4",
+  "scene": "E4_07_Result",
+  "text": "Look how far we've come. Stage one: the two rules, traced on the processor and drawn as lines. Stage two: the same rules in a shader, one ray per pixel. Stage three: a disk, its motion, and its glow."
+ },
+ {
+  "id": "E4_07_Result_05",
+  "episode": "ep4",
+  "scene": "E4_07_Result",
+  "text": "The repository also has a more polished version of this program. It adds a soft glow around the bright areas, and a camera that properly accounts for curved space."
+ },
+ {
+  "id": "E4_07_Result_06",
+  "episode": "ep4",
+  "scene": "E4_07_Result",
+  "text": "And it has tests. They check the code against things you can work out by hand: that light orbits at three M, that the shadow's edge is at five point two M, and that distant rays bend by the textbook amount."
+ },
+ {
+  "id": "E4_07_Result_07",
+  "episode": "ep4",
+  "scene": "E4_07_Result",
+  "text": "And that's a whole black hole, built from scratch. If you made it this far, go run the code, break it, and make it yours. Thanks for watching!"
+ }
+]

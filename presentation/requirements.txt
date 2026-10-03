@@ -1,0 +1,6 @@
+manim>=0.21
+pillow
+numpy
+kokoro-onnx
+soundfile
+scipy
