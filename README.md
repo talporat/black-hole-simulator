@@ -11,7 +11,7 @@ the code line by line.
 
 **Watch the series:** Part 1 · Part 2 · Part 3 · Part 4 (links added after upload)
 
-<p align="center"><img src="presentation/youtube/ep4_thumbnail.jpg" width="640" alt="The black hole simulator"></p>
+<p align="center"><img src="docs/blackhole.gif" width="640" alt="The black hole simulator, running"></p>
 
 ## Build and run
 
